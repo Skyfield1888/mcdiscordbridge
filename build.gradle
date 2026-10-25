@@ -97,7 +97,7 @@ dependencies {
     compileOnly "com.google.code.gson:gson:2.10.1"
 
     // Core Discord4J library
-    shadedDiscord "com.discord4j:discord4j-core:3.3.2"
+    shadedDiscord "com.discord4j:discord4j-core:3.3.3"
 
     // DAVE (Discord voice E2EE) native bindings — one artifact per target OS/arch
     shadedDiscord "moe.kyokobot.libdave:impl-jni:0.1.2"
