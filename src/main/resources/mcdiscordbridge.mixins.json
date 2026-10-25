@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.skyfield.mcdiscordbridge.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "mcdiscordbridge.refmap.json",
+  "client": [
+    "GuiGraphicsMixin"
+  ]
+}

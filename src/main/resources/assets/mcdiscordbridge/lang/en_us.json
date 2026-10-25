@@ -1,0 +1,13 @@
+{
+  "itemGroup.mcdiscordbridge": "Example Mod Tab",
+  "block.mcdiscordbridge.example_block": "Example Block",
+  "item.mcdiscordbridge.example_item": "Example Item",
+
+  "mcdiscordbridge.configuration.title": "McDiscordBridge Configs",
+  "mcdiscordbridge.configuration.section.mcdiscordbridge.common.toml": "McDiscordBridge Configs",
+  "mcdiscordbridge.configuration.section.mcdiscordbridge.common.toml.title": "McDiscordBridge Configs",
+  "mcdiscordbridge.configuration.items": "Item List",
+  "mcdiscordbridge.configuration.logDirtBlock": "Log Dirt Block",
+  "mcdiscordbridge.configuration.magicNumberIntroduction": "Magic Number Text",
+  "mcdiscordbridge.configuration.magicNumber": "Magic Number"
+}
