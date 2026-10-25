@@ -33,6 +33,7 @@ public class ClientChatHandler {
         int last = 0;
         for (Span span : spans) {
             rebuilt.append(content, last, span.start());
+            if (span.key().startsWith("gif:")) rebuilt.append('\n'); // image goes on its own line
             appendTokenOrFallback(rebuilt, span.key(), span.fallback());
             last = span.end();
         }

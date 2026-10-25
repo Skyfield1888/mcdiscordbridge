@@ -22,6 +22,7 @@ import discord4j.core.object.entity.Message;
 import discord4j.core.object.entity.channel.MessageChannel;
 import discord4j.core.object.entity.channel.VoiceChannel;
 import discord4j.core.spec.AudioChannelJoinSpec;
+import discord4j.core.spec.MessageCreateSpec;
 import discord4j.discordjson.json.ApplicationCommandOptionData;
 import discord4j.discordjson.json.ApplicationCommandRequest;
 import discord4j.gateway.intent.Intent;
@@ -31,6 +32,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import reactor.core.publisher.Mono;
+import discord4j.core.spec.MessageCreateFields;
 
 import java.time.Duration;
 import java.util.*;
@@ -458,6 +460,21 @@ public class DiscordBotManager {
                         message -> { /* sent successfully, nothing else to do */ },
                         error -> McDiscordBridge.LOGGER.error(
                                 "[McDiscordBridge] Failed to send message to Discord: " + error.getMessage())
+                );
+    }
+
+    public void sendScreenshot(String playerName, byte[] png) {
+        if (targetChannel == null || client == null) return;
+
+        targetChannel.createMessage(MessageCreateSpec.builder()
+                        .content("📸 **" + playerName + "** shared a screenshot")
+                        .addFile(MessageCreateFields.File.of(
+                                "screenshot.png", new java.io.ByteArrayInputStream(png)))
+                        .build())
+                .subscribe(
+                        m -> { },
+                        error -> McDiscordBridge.LOGGER.error(
+                                "[McDiscordBridge] Failed to send screenshot: " + error.getMessage())
                 );
     }
 

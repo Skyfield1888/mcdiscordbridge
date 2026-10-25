@@ -3,12 +3,10 @@ package com.skyfield.mcdiscordbridge.server;
 import com.skyfield.mcdiscordbridge.client.emoji.ClientChatHandler;
 import com.skyfield.mcdiscordbridge.client.emoji.ClientTextureCache;
 import com.skyfield.mcdiscordbridge.server.emoji.EmojiServerManager;
-import com.skyfield.mcdiscordbridge.server.network.AnimatedEmojiAssetPacket;
-import com.skyfield.mcdiscordbridge.server.network.DiscordChatPayload;
+import com.skyfield.mcdiscordbridge.server.network.*;
 import com.skyfield.mcdiscordbridge.server.discord.DiscordBotManager;
 import com.skyfield.mcdiscordbridge.server.discord.LinkManager;
-import com.skyfield.mcdiscordbridge.server.network.EmojiAssetPacket;
-import com.skyfield.mcdiscordbridge.server.network.RequestMissingEmojiPacket;
+import com.skyfield.mcdiscordbridge.server.screenshot.ScreenshotServerManager;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -73,6 +71,17 @@ public class McDiscordBridge {
                 AnimatedEmojiAssetPacket.STREAM_CODEC,
                 (payload, context) -> context.enqueueWork(() ->
                         ClientTextureCache.receiveAnimated(payload.key(), payload.frames(), payload.frameDurationMs()))
+        );
+        registrar.playToServer(
+                ScreenshotChunkPacket.TYPE,
+                ScreenshotChunkPacket.STREAM_CODEC,
+                (payload, context) -> ScreenshotServerManager.handle((ServerPlayer) context.player(), payload)
+        );
+        registrar.playToServer(
+                RequestMissingEmojiPacket.TYPE,
+                RequestMissingEmojiPacket.STREAM_CODEC,
+                (payload, context) -> EmojiServerManager.handleMissingRequest(
+                        (ServerPlayer) context.player(), payload.key())
         );
     }
 
